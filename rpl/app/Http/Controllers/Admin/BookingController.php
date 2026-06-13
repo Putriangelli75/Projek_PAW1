@@ -13,8 +13,8 @@ class BookingController extends Controller
             'user',
             'lapangan'
         ])
-        ->latest('id_booking')
-        ->get();
+            ->latest('id_booking')
+            ->get();
 
         return view(
             'admin.booking.index',
@@ -22,12 +22,9 @@ class BookingController extends Controller
         );
     }
 
-    public function updateStatus(
-        $id,
-        $status
-    ) {
-
-        $booking = Booking::findOrFail($id);
+    public function updateStatus($id, $status)
+    {
+        $booking = \App\Models\Booking::findOrFail($id);
 
         $booking->update([
             'status' => $status
@@ -37,7 +34,7 @@ class BookingController extends Controller
             ->route('admin.booking.index')
             ->with(
                 'success',
-                'Status berhasil diperbarui'
+                'Status booking berhasil diperbarui'
             );
     }
 }

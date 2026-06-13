@@ -13,4 +13,5 @@ class DatabaseSeeder extends Seeder
             LapanganSeeder::class,
         ]);
     }
+    
 }

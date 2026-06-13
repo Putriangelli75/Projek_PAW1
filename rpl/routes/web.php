@@ -12,6 +12,7 @@ use App\Http\Controllers\Pelanggan\DashboardController as PelangganDashboardCont
 use App\Http\Controllers\Pelanggan\AkunController;
 use App\Http\Controllers\Pelanggan\BookingController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Pelanggan\LapanganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,8 +69,10 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
 
-    Route::get('/dashboard',
-        [AdminDashboardController::class, 'index'])
+    Route::get(
+        '/dashboard',
+        [AdminDashboardController::class, 'index']
+    )
         ->name('admin.dashboard');
 
     Route::resource(
@@ -82,6 +85,10 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         AdminBookingController::class
     )->names('admin.booking');
 
+    Route::get(
+        '/booking/{id}/status/{status}',
+        [AdminBookingController::class, 'updateStatus']
+    )->name('admin.booking.status');
 });
 
 /*
@@ -92,28 +99,68 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
 Route::middleware(['auth'])->prefix('pelanggan')->group(function () {
 
-    Route::get('/dashboard',
-        [PelangganDashboardController::class, 'index'])
+    Route::get(
+        '/dashboard',
+        [PelangganDashboardController::class, 'index']
+    )
         ->name('pelanggan.dashboard');
 
-    Route::get('/akun',
-        [AkunController::class, 'index'])
+    Route::get(
+        '/akun',
+        [AkunController::class, 'index']
+    )
         ->name('pelanggan.akun');
 
-    Route::get('/akun/edit',
-        [AkunController::class, 'edit'])
+    Route::get(
+        '/akun/edit',
+        [AkunController::class, 'edit']
+    )
         ->name('pelanggan.edit-akun');
 
-    Route::put('/akun/update',
-        [AkunController::class, 'update'])
+    Route::put(
+        '/akun/update',
+        [AkunController::class, 'update']
+    )
         ->name('pelanggan.update-akun');
 
-    Route::get('/booking/{id}',
-        [BookingController::class, 'create'])
+    Route::get(
+        '/booking/{id}',
+        [BookingController::class, 'create']
+    )
         ->name('pelanggan.booking.create');
 
-    Route::post('/booking/{id}',
-        [BookingController::class, 'store'])
+    Route::post(
+        '/booking/{id}',
+        [BookingController::class, 'store']
+    )
         ->name('pelanggan.booking.store');
 
+
+    ## Riwayat Booking
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/riwayat-booking', [BookingController::class, 'riwayat']);
+    });
+
+    ## Batal Booking
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/booking/batal/{id}', [BookingController::class, 'batal']);
+    });
+
+    ## Ubah Password
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/akun/password', [AkunController::class, 'editPassword']);
+        Route::post('/akun/password', [AkunController::class, 'updatePassword']);
+    });
+
+    ## Pembayaran
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/pembayaran/{id}', [BookingController::class, 'formPembayaran']);
+        Route::post('/pembayaran/{id}', [BookingController::class, 'uploadPembayaran']);
+    });
+
+    ## Lapangan
+    Route::prefix('pelanggan')->middleware('auth')->group(function () {
+        Route::get('/lapangan', [LapanganController::class, 'index'])
+            ->name('pelanggan.lapangan.index');
+    });
 });

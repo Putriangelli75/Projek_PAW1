@@ -40,4 +40,18 @@ class Booking extends Model
             'id_lapangan'
         );
     }
+
+
+    ## Batal Booking
+    public function batal($id)
+    {
+        $user = Auth::user();
+
+        Booking::where('id_booking', $id)
+            ->where('id_user', $user->id)
+            ->delete();
+
+        return redirect('/riwayat-booking')
+            ->with('success', 'Booking berhasil dibatalkan');
+    }
 }

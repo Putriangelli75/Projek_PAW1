@@ -4,67 +4,44 @@
 
 <div class="container mt-5">
 
-    <div class="card shadow mb-4">
+    <div class="card shadow">
 
         <div class="card-header bg-success text-white">
-
             Booking Lapangan
-
         </div>
 
         <div class="card-body">
 
-            <h3 class="mb-4">
-
-                {{ $lapangan->nama_lapangan }}
-
-            </h3>
+            <h3>{{ $lapangan->nama_lapangan }}</h3>
 
             <form
-                action="{{ route('pelanggan.booking.store',$lapangan->id_lapangan) }}"
+                action="{{ route('pelanggan.booking.store', $lapangan->id_lapangan) }}"
                 method="POST">
 
                 @csrf
 
                 <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Tanggal Booking
-
-                    </label>
+                    <label>Tanggal Booking</label>
 
                     <input
                         type="date"
                         name="tanggal"
                         class="form-control"
                         required>
-
                 </div>
 
                 <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Jam Mulai
-
-                    </label>
+                    <label>Jam Mulai</label>
 
                     <input
                         type="time"
                         name="jam"
                         class="form-control"
                         required>
-
                 </div>
 
                 <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Durasi
-
-                    </label>
+                    <label>Durasi</label>
 
                     <select
                         name="durasi"
@@ -75,18 +52,15 @@
                         <option value="3">3 Jam</option>
 
                     </select>
-
                 </div>
 
                 <div class="alert alert-info">
 
-                    <strong>Informasi:</strong>
-
-                    <br>
+                    <strong>Informasi:</strong><br>
 
                     Setelah booking berhasil dibuat,
-                    silakan lakukan pembayaran DP
-                    melalui menu Riwayat Booking.
+                    silakan lakukan pembayaran DP melalui menu
+                    Riwayat Booking.
 
                 </div>
 
@@ -99,7 +73,7 @@
                 </button>
 
                 <a
-                    href="{{ route('pelanggan.lapangan.index') }}"
+                    href="{{ route('pelanggan.dashboard') }}"
                     class="btn btn-secondary">
 
                     Kembali

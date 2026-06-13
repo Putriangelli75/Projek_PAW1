@@ -14,7 +14,6 @@ class Lapangan extends Model
         'nama_lapangan',
         'jenis_olahraga',
         'harga_per_jam',
-        'gambar',
         'status'
     ];
 }

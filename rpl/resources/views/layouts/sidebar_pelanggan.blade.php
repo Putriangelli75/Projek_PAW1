@@ -31,8 +31,8 @@
 
             <li>
 
-                <a href="{{ route('pelanggan.lapangan.index') }}"
-                    class="{{ request()->routeIs('pelanggan.lapangan.*') ? 'active' : '' }}">
+                <a href="{{ route('pelanggan.lapangan') }}"
+                    class="{{ request()->routeIs('pelanggan.lapangan') ? 'active' : '' }}">
 
                     ⚽ Booking Lapangan
 
