@@ -69,12 +69,6 @@ if (isset($_POST['booking'])) {
 
     ]);
 
-    $db->exec("
-        UPDATE users
-        SET poin = poin + 10
-        WHERE id_user = " . $_SESSION['id_user']
-    );
-
     header("Location: riwayat_booking.php");
     exit;
 }
