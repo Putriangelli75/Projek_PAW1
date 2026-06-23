@@ -321,8 +321,8 @@ lapangans.map(item => `
                     ? '🏸'
                     : item.jenis_olahraga.toLowerCase().includes('basket')
                     ? '🏀'
-                    : item.jenis_olahraga.toLowerCase().includes('mini soccer')
-                    ? '⚽'
+                    : item.jenis_olahraga.toLowerCase().includes('voli')
+                    ? '🏐'
                     : '🎾'
                 }
 
@@ -362,7 +362,7 @@ lapangans.map(item => `
                     onclick="selectLapangan(${item.id})"
                     class="btn-clean w-full text-lg py-3">
 
-                    🎟️ Pesan Sekarang
+                    Pesan Lapangan
 
                 </button>
                 `
@@ -371,10 +371,10 @@ lapangans.map(item => `
                     disabled
                     class="btn-outline-clean w-full opacity-60">
 
-                    🎟️ Tidak Tersedia
+                    Tidak Tersedia
 
                 </button>
-                
+                `
             }
 
         </div>
