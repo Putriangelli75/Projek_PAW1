@@ -5,10 +5,7 @@
             <p class="mt-2 text-sm text-slate-500">Sistem Pemesanan Lapangan Jakabaring.</p>
         </div>
 
-        <div class="flex flex-wrap gap-4">
-            <a class="footer-link" href="{{ route('home') }}">Beranda</a>
-            <a class="footer-link" href="{{ route('login') }}">Login</a>
-            <a class="footer-link" href="{{ route('register') }}">Daftar</a>
+   
         </div>
     </div>
 </footer>

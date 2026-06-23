@@ -1,87 +1,415 @@
 @extends('layouts.app')
 
 @section('title', 'Admin Dashboard - SPLJ')
+
 @section('app_sidebar', true)
 
 @section('content')
+
+<div class="space-y-8">
+
+
+    <!-- HEADER -->
+
     <div class="flex flex-wrap items-end justify-between gap-4">
+
+
         <div>
-            <p class="eyebrow-clean mb-3">Panel Admin</p>
-            <h1 class="text-3xl font-semibold tracking-[-0.01em] text-slate-950">Statistik SPLJ</h1>
-            <p class="mt-2 text-sm leading-6 text-slate-600">Overview sistem pemesanan lapangan Jakabaring secara real-time.</p>
+
+            <p class="text-sm font-semibold 
+            text-emerald-700 mb-2">
+
+                Panel Admin
+
+            </p>
+
+
+            <h1 class="text-3xl font-bold 
+            text-slate-900">
+
+                Statistik SPLJ
+
+            </h1>
+
+
+            <p class="mt-2 text-sm 
+            text-slate-500">
+
+                Overview sistem pemesanan lapangan Jakabaring secara real-time.
+
+            </p>
         </div>
-        <div class="flex gap-3">
-            <a class="btn-outline-clean" href="{{ route('admin.lapangan') }}">Kelola Lapangan</a>
-            <a class="btn-clean" href="{{ route('admin.bookings') }}">Daftar Booking</a>
-        </div>
+
+
     </div>
 
-    <div class="mt-8" id="adminAlert"></div>
 
-    <!-- Stats Cards -->
-    <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-        <div class="surface metric-card p-5">
-            <p class="text-sm font-semibold text-slate-500 font-medium">Total Lapangan</p>
-            <h2 class="mt-2 text-3xl font-bold text-slate-950" id="totalLapangan">0</h2>
+
+
+
+    <div id="adminAlert"></div>
+
+
+
+
+
+
+    <!-- STAT CARD -->
+
+
+    <div class="grid gap-5
+    md:grid-cols-2
+    xl:grid-cols-5">
+
+
+
+        <div class="bg-white
+        rounded-2xl
+        border border-slate-200
+        p-5
+        hover:shadow-md
+        transition">
+
+
+            <p class="text-sm text-slate-500">
+                Total Lapangan
+            </p>
+
+
+            <h2 id="totalLapangan"
+
+            class="mt-3 text-3xl font-bold text-slate-900">
+
+                0
+
+            </h2>
+
+
         </div>
-        <div class="surface metric-card p-5">
-            <p class="text-sm font-semibold text-slate-500 font-medium">Total Booking</p>
-            <h2 class="mt-2 text-3xl font-bold text-slate-950" id="totalBookings">0</h2>
+
+
+
+
+
+        <div class="bg-white
+        rounded-2xl
+        border border-slate-200
+        p-5
+        hover:shadow-md
+        transition">
+
+
+            <p class="text-sm text-slate-500">
+                Total Booking
+            </p>
+
+
+            <h2 id="totalBookings"
+
+            class="mt-3 text-3xl font-bold text-slate-900">
+
+                0
+
+            </h2>
+
+
         </div>
-        <div class="surface metric-card p-5">
-            <p class="text-sm font-semibold text-slate-500 font-medium font-bold text-emerald-800">Total Pendapatan</p>
-            <h2 class="mt-2 text-3xl font-bold text-slate-950 text-emerald-950" id="totalRevenue">Rp0</h2>
+
+
+
+
+
+
+
+        <div class="bg-white
+        rounded-2xl
+        border border-slate-200
+        p-5
+        hover:shadow-md
+        transition">
+
+
+            <p class="text-sm text-slate-500">
+                Total Pendapatan
+            </p>
+
+
+            <h2 id="totalRevenue"
+
+            class="mt-3 text-3xl font-bold text-emerald-700">
+
+                Rp0
+
+            </h2>
+
+
         </div>
-        <div class="surface metric-card p-5">
-            <p class="text-sm font-semibold text-slate-500 font-medium text-amber-800">Menunggu Verifikasi</p>
-            <h2 class="mt-2 text-3xl font-bold text-slate-950 text-amber-900 animate-pulse" id="pendingVerifications">0</h2>
+
+
+
+
+
+
+
+        <div class="bg-white
+        rounded-2xl
+        border border-slate-200
+        p-5
+        hover:shadow-md
+        transition">
+
+
+            <p class="text-sm text-slate-500">
+                Menunggu Verifikasi
+            </p>
+
+
+            <h2 id="pendingVerifications"
+
+            class="mt-3 text-3xl font-bold text-orange-600">
+
+                0
+
+            </h2>
+
+
         </div>
-        <div class="surface metric-card p-5">
-            <p class="text-sm font-semibold text-slate-500 font-medium">Total Pelanggan</p>
-            <h2 class="mt-2 text-3xl font-bold text-slate-950" id="totalUsers">0</h2>
+
+
+
+
+
+
+
+        <div class="bg-white
+        rounded-2xl
+        border border-slate-200
+        p-5
+        hover:shadow-md
+        transition">
+
+
+            <p class="text-sm text-slate-500">
+                Total Pelanggan
+            </p>
+
+            
+            <h2 id="totalUsers"
+
+            class="mt-3 text-3xl font-bold text-slate-900">
+
+                0
+
+            </h2>
+
         </div>
+
+        </div>
+
+
+
     </div>
 
-    <!-- Verifikasi Pembayaran Cepat -->
-    <div class="surface mt-8 p-5">
-        <div class="flex items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-4">
+
+
+
+
+
+
+
+    <!-- TABLE VERIFIKASI -->
+
+
+    <div class="bg-white
+    rounded-2xl
+    border border-slate-200
+    p-5">
+
+
+        <div class="flex justify-between 
+        items-center mb-5">
+
+
             <div>
-                <h2 class="text-lg font-semibold text-slate-950">Membutuhkan Verifikasi</h2>
-                <p class="text-sm text-slate-500 mt-0.5">Booking yang telah diupload buktinya dan menunggu persetujuan Anda.</p>
+
+
+                <h2 class="text-lg font-bold 
+                text-slate-900">
+
+                    Membutuhkan Verifikasi
+
+                </h2>
+
+
+
+                <p class="text-sm text-slate-500">
+
+                    Booking yang menunggu persetujuan admin.
+
+                </p>
+
+
             </div>
-            <span class="text-xs bg-amber-50 text-amber-800 font-semibold px-2.5 py-1 rounded-full" id="pendingBadge">0 Transaksi</span>
+
+
+
+
+
+            <span id="pendingBadge"
+
+            class="px-3 py-1 rounded-full
+            text-xs font-semibold
+            bg-orange-50
+            text-orange-700">
+
+
+                0 Transaksi
+
+
+            </span>
+
+
         </div>
-        
+
+
+
+
+
+
         <div class="overflow-x-auto">
-            <table class="w-full min-w-[800px] text-left text-sm">
-                <thead class="border-b border-slate-200 bg-stone-100/60 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-                    <tr>
-                        <th class="px-5 py-4">Pelanggan</th>
-                        <th class="px-5 py-4">Lapangan</th>
-                        <th class="px-5 py-4">Tanggal & Jam</th>
-                        <th class="px-5 py-4">Total Harga</th>
-                        <th class="px-5 py-4">Bukti</th>
-                        <th class="px-5 py-4 text-right">Aksi</th>
+
+
+            <table class="w-full text-sm">
+
+
+                <thead>
+
+
+                    <tr class="border-b
+                    text-slate-500">
+
+
+                        <th class="py-3 text-left">
+                            Pelanggan
+                        </th>
+
+
+                        <th class="py-3 text-left">
+                            Lapangan
+                        </th>
+
+
+                        <th class="py-3 text-left">
+                            Tanggal & Jam
+                        </th>
+
+
+                        <th class="py-3 text-left">
+                            Total Harga
+                        </th>
+
+
+                        <th class="py-3 text-left">
+                            Bukti
+                        </th>
+
+
+                        <th class="py-3 text-right">
+                            Aksi
+                        </th>
+
+
                     </tr>
+
+
                 </thead>
-                <tbody class="divide-y divide-slate-200" id="pendingBookingsBody">
+
+
+
+                <tbody id="pendingBookingsBody">
+
+
                     <tr>
-                        <td class="px-5 py-5 text-center text-slate-500" colspan="6">Memuat data verifikasi...</td>
+
+                        <td colspan="6"
+
+                        class="py-10 text-center
+                        text-slate-500">
+
+
+                            Memuat data verifikasi...
+
+
+                        </td>
+
+
                     </tr>
+
+
                 </tbody>
+
+
+
             </table>
+
+
+
         </div>
+
+
     </div>
 
-    <!-- Modal Bukti Bayar -->
-    <div id="imageModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-xs p-4">
-        <div class="max-w-2xl w-full p-4 relative flex flex-col items-center">
-            <button class="absolute top-0 right-4 text-white hover:text-stone-200 text-4xl font-semibold leading-none z-50" onclick="closeImageModal()">&times;</button>
-            <img id="modalImg" class="max-h-[80vh] w-auto rounded-lg shadow-2xl object-contain bg-white" src="" alt="Bukti Pembayaran">
-            <p class="mt-4 text-white text-sm bg-slate-950/60 px-4 py-2 rounded-full" id="modalImgLabel"></p>
+
+
+
+
+
+    <!-- MODAL -->
+
+
+    <div id="imageModal"
+
+    class="fixed inset-0 hidden items-center
+    justify-center bg-black/50 z-50">
+
+
+        <div class="bg-white rounded-2xl p-5">
+
+
+            <button onclick="closeImageModal()"
+
+            class="float-right text-xl">
+
+                ✕
+
+            </button>
+
+
+
+            <img id="modalImg"
+
+            class="max-h-[80vh] rounded-xl">
+
+
+            <p id="modalImgLabel"
+
+            class="mt-3 text-center">
+
+            </p>
+
+
         </div>
+
+
     </div>
+
+
+
+</div>
+
+
 @endsection
+</div>
 
 @push('scripts')
     <script>

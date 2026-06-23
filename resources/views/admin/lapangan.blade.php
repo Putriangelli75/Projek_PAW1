@@ -1,97 +1,603 @@
 @extends('layouts.app')
 
 @section('title', 'Kelola Lapangan - Admin SPLJ')
+
 @section('app_sidebar', true)
 
 @section('content')
-    <div class="flex flex-wrap items-end justify-between gap-4">
+
+
+<div class="space-y-10">
+
+
+
+    <!-- HEADER -->
+
+    <div class="flex flex-wrap items-center justify-between gap-5">
+
+
         <div>
-            <p class="eyebrow-clean mb-3">Manajemen Lapangan</p>
-            <h1 class="text-3xl font-semibold tracking-[-0.01em] text-slate-950">Kelola Data Lapangan</h1>
-            <p class="mt-2 text-sm leading-6 text-slate-600">Tambah, ubah, dan nonaktifkan lapangan olahraga Jakabaring.</p>
+
+
+            <div class="flex items-center gap-2">
+
+                <span class="px-3 py-1 rounded-full
+                bg-emerald-50
+                text-emerald-700
+                text-xs font-semibold">
+
+                    ADMIN PANEL
+
+                </span>
+
+
+            </div>
+
+
+
+
+            <h1 class="mt-4 text-4xl font-bold
+            text-slate-900">
+
+                Kelola Data Lapangan
+
+            </h1>
+
+
+
+            <p class="mt-3 text-slate-500">
+
+                Tambah, edit, dan kontrol seluruh lapangan olahraga SPLJ.
+
+            </p>
+
+
         </div>
-        <button class="btn-clean" onclick="openLapanganModal()">Tambah Lapangan</button>
+
+
+
+
+
+
+        <button
+
+        onclick="openLapanganModal()"
+
+        class="group flex items-center gap-2
+        rounded-2xl
+        bg-emerald-600
+        px-6 py-3
+        text-white
+        font-semibold
+        shadow-lg
+        shadow-emerald-200
+        hover:bg-emerald-700
+        transition">
+
+
+            <span class="text-xl">
+
+                +
+
+            </span>
+
+
+            Tambah Lapangan
+
+
+        </button>
+
+
+
     </div>
 
-    <div class="mt-8" id="adminLapanganAlert"></div>
 
-    <div class="surface mt-8 overflow-hidden">
+
+
+
+
+
+    <div id="adminLapanganAlert"></div>
+
+
+
+
+
+
+
+
+    <!-- TABLE CARD -->
+
+
+    <div class="bg-white
+    rounded-3xl
+    border border-slate-200
+    shadow-sm
+    overflow-hidden">
+
+
+
+        <div class="px-6 py-5
+        border-b
+        flex justify-between">
+
+
+            <div>
+
+                <h2 class="font-bold text-lg">
+
+                    Daftar Lapangan
+
+                </h2>
+
+
+                <p class="text-sm text-slate-500">
+
+                    Data lapangan yang tersedia di sistem.
+
+                </p>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
         <div class="overflow-x-auto">
-            <table class="w-full min-w-[800px] text-left text-sm">
-                <thead class="border-b border-slate-200 bg-stone-100/60 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
-                    <tr>
-                        <th class="px-5 py-4">Nama Lapangan</th>
-                        <th class="px-5 py-4">Jenis Olahraga</th>
-                        <th class="px-5 py-4">Harga / Jam</th>
-                        <th class="px-5 py-4">Deskripsi</th>
-                        <th class="px-5 py-4">Status</th>
-                        <th class="px-5 py-4 text-right">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-200" id="lapanganTableBody">
-                    <tr>
-                        <td class="px-5 py-5 text-center text-slate-500" colspan="6">Memuat data lapangan...</td>
-                    </tr>
-                </tbody>
-            </table>
+
+
+        <table class="w-full text-sm">
+
+
+            <thead>
+
+
+                <tr class="bg-slate-50
+                text-slate-500
+                uppercase
+                text-xs">
+
+
+                    <th class="px-6 py-4 text-left">
+                        Lapangan
+                    </th>
+
+
+                    <th class="px-6 py-4 text-left">
+                        Olahraga
+                    </th>
+
+
+                    <th class="px-6 py-4 text-left">
+                        Harga
+                    </th>
+
+
+                    <th class="px-6 py-4 text-left">
+                        Deskripsi
+                    </th>
+
+
+                    <th class="px-6 py-4 text-left">
+                        Status
+                    </th>
+
+
+                    <th class="px-6 py-4 text-right">
+                        Aksi
+                    </th>
+
+
+                </tr>
+
+
+            </thead>
+
+
+
+
+            <tbody
+
+            id="lapanganTableBody"
+
+            class="divide-y divide-slate-100">
+
+
+
+                <tr>
+
+                    <td colspan="6"
+
+                    class="text-center py-10 text-slate-500">
+
+
+                        Memuat data lapangan...
+
+
+                    </td>
+
+
+                </tr>
+
+
+
+            </tbody>
+
+
+
+        </table>
+
+
         </div>
+
+
+
     </div>
 
-    <!-- Modal Form Tambah / Edit Lapangan -->
-    <div id="lapanganModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/50 backdrop-blur-xs p-4 animate-in fade-in duration-200">
-        <div class="surface max-w-lg w-full p-6 shadow-xl relative animate-in zoom-in-95 duration-200">
-            <button class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-2xl font-bold leading-none" onclick="closeLapanganModal()">&times;</button>
-            <h3 class="text-lg font-semibold text-slate-950" id="modalTitle">Tambah Lapangan</h3>
-            <p class="mt-1 text-sm text-slate-500" id="modalSubtitle">Tambahkan data lapangan baru ke dalam sistem.</p>
-            
-            <div class="mt-4" id="modalAlert"></div>
-            
-            <form id="lapanganForm" class="mt-4 grid gap-4" onsubmit="submitLapangan(event)">
-                <input type="hidden" id="lapangan_id">
-                
-                <div>
-                    <label class="label-clean" for="nama_lapangan">Nama Lapangan</label>
-                    <input class="input-clean" type="text" id="nama_lapangan" placeholder="Contoh: Futsal A" required>
-                </div>
 
-                <div class="grid gap-4 sm:grid-cols-2">
-                    <div>
-                        <label class="label-clean" for="jenis_olahraga">Jenis Olahraga</label>
-                        <select class="input-clean" id="jenis_olahraga" required>
-                            <option value="" disabled selected>Pilih Olahraga</option>
-                            <option value="Futsal">Futsal</option>
-                            <option value="Badminton">Badminton</option>
-                            <option value="Basket">Basket</option>
-                            <option value="Tenis">Tenis</option>
-                            <option value="Mini Soccer">Mini Soccer</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="label-clean" for="harga_per_jam">Harga per Jam (IDR)</label>
-                        <input class="input-clean" type="number" id="harga_per_jam" placeholder="Harga dalam Rupiah" min="0" required>
-                    </div>
-                </div>
 
-                <div>
-                    <label class="label-clean" for="status">Status Operasional</label>
-                    <select class="input-clean" id="status" required>
-                        <option value="tersedia" selected>Tersedia</option>
-                        <option value="maintenance">Maintenance</option>
-                    </select>
-                </div>
 
-                <div>
-                    <label class="label-clean" for="deskripsi">Deskripsi Lapangan</label>
-                    <textarea class="input-clean min-h-[80px]" id="deskripsi" placeholder="Tuliskan detail fasilitas lapangan jika ada..."></textarea>
-                </div>
 
-                <div class="flex justify-end gap-3 mt-6 border-t border-slate-100 pt-4">
-                    <button class="btn-outline-clean" type="button" onclick="closeLapanganModal()">Batal</button>
-                    <button class="btn-clean" type="submit" id="submitBtn">Simpan</button>
-                </div>
-            </form>
+
+
+
+
+<!-- MODAL MODERN -->
+
+
+<div id="lapanganModal"
+
+class="fixed inset-0 hidden items-center justify-center
+bg-slate-900/60 backdrop-blur-sm z-50 p-5">
+
+
+
+
+
+<div class="bg-white
+rounded-3xl
+shadow-2xl
+w-full max-w-xl
+p-8">
+
+
+
+
+
+    <div class="flex justify-between items-start">
+
+
+        <div>
+
+
+            <h2 id="modalTitle"
+
+            class="text-2xl font-bold text-slate-900">
+
+
+                Tambah Lapangan
+
+
+            </h2>
+
+
+            <p id="modalSubtitle"
+
+            class="mt-2 text-sm text-slate-500">
+
+                Tambahkan lapangan baru ke sistem.
+
+
+            </p>
+
+
         </div>
+
+
+
+
+        <button
+
+        onclick="closeLapanganModal()"
+
+        class="w-10 h-10 rounded-full
+        hover:bg-slate-100">
+
+
+            ✕
+
+        </button>
+
+
+
     </div>
+
+
+
+
+
+
+
+    <div id="modalAlert"
+
+    class="mt-4">
+
+    </div>
+
+
+
+
+
+
+
+    <form id="lapanganForm"
+
+    onsubmit="submitLapangan(event)"
+
+    class="mt-6 space-y-5">
+
+
+
+
+
+        <input type="hidden"
+
+        id="lapangan_id">
+
+
+
+
+
+        <div>
+
+
+            <label class="text-sm font-semibold">
+
+                Nama Lapangan
+
+            </label>
+
+
+            <input
+
+            id="nama_lapangan"
+
+            class="mt-2 w-full
+            rounded-2xl
+            border border-slate-200
+            px-4 py-3
+            focus:ring-2
+            focus:ring-emerald-500
+            outline-none"
+
+            placeholder="Contoh: Futsal A"
+
+            required>
+
+
+        </div>
+
+
+
+
+
+
+
+
+        <div class="grid sm:grid-cols-2 gap-4">
+
+
+
+            <div>
+
+
+                <label class="text-sm font-semibold">
+
+                    Jenis Olahraga
+
+                </label>
+
+
+
+                <select
+
+                id="jenis_olahraga"
+
+                class="mt-2 w-full
+                rounded-2xl
+                border
+                px-4 py-3">
+
+
+                    <option value="">
+                        Pilih olahraga
+                    </option>
+
+
+                    <option>Futsal</option>
+
+                    <option>Badminton</option>
+
+                    <option>Basket</option>
+
+                    <option>Tenis</option>
+
+                    <option>Mini Soccer</option>
+
+
+                </select>
+
+
+            </div>
+
+
+
+
+
+
+            <div>
+
+
+                <label class="text-sm font-semibold">
+
+                    Harga / Jam
+
+                </label>
+
+
+
+                <input
+
+                id="harga_per_jam"
+
+                type="number"
+
+                class="mt-2 w-full
+                rounded-2xl
+                border
+                px-4 py-3"
+
+                placeholder="100000">
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+        <div>
+
+
+            <label class="text-sm font-semibold">
+
+                Status
+
+            </label>
+
+
+            <select
+
+            id="status"
+
+            class="mt-2 w-full rounded-2xl border px-4 py-3">
+
+
+                <option value="tersedia">
+                    Tersedia
+                </option>
+
+
+                <option value="maintenance">
+                    Maintenance
+                </option>
+
+
+            </select>
+
+
+        </div>
+
+
+
+
+
+
+
+        <div>
+
+
+            <label class="text-sm font-semibold">
+
+                Deskripsi
+
+            </label>
+
+
+            <textarea
+
+            id="deskripsi"
+
+            rows="3"
+
+            class="mt-2 w-full rounded-2xl border px-4 py-3"
+
+            placeholder="Fasilitas lapangan...">
+
+            </textarea>
+
+
+        </div>
+
+
+
+
+
+
+        <div class="flex justify-end gap-3 pt-5 border-t">
+
+
+            <button
+
+            type="button"
+
+            onclick="closeLapanganModal()"
+
+            class="px-5 py-3 rounded-xl border">
+
+                Batal
+
+            </button>
+
+
+
+
+
+            <button
+
+            id="submitBtn"
+
+            class="px-6 py-3 rounded-xl
+            bg-emerald-600
+            text-white
+            font-semibold">
+
+                Simpan
+
+            </button>
+
+
+
+        </div>
+
+
+
+    </form>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
 @endsection
 
 @push('scripts')
