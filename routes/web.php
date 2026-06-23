@@ -11,6 +11,8 @@ Route::view('/register', 'register')->name('register');
 // Pelanggan (User) routes
 Route::view('/dashboard', 'dashboard')->name('dashboard');
 Route::view('/lapangan', 'lapangan')->name('lapangan.index');
+Route::view('/booking', 'booking')->name('booking.index');
+
 
 // Admin routes
 Route::view('/admin/dashboard', 'admin.dashboard')->name('admin.dashboard');

@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <div class="mt-6 grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+    <div class="mt-6">
         <!-- Lapangan Preview -->
         <div class="surface p-5">
             <div class="flex items-center justify-between gap-4">
@@ -45,18 +45,7 @@
             <div class="mt-5 grid gap-4" id="lapanganPreview"></div>
         </div>
 
-        <!-- Riwayat Booking -->
-        <div class="surface p-5">
-            <div class="flex items-center justify-between gap-4">
-                <h2 class="text-lg font-semibold text-slate-950">Riwayat Booking</h2>
-                <a class="text-sm font-semibold text-emerald-900 hover:underline hover:text-emerald-850" href="{{ route('lapangan.index') }}">Buat booking baru &rarr;</a>
-            </div>
-            <div class="mt-5 grid gap-3" id="bookingHistory">
-                <p class="rounded-lg border border-slate-200 p-4 text-sm text-slate-500">Memuat riwayat...</p>
-            </div>
-        </div>
-    </div>
-
+   
     <!-- Modal Upload Bukti Bayar -->
     <div id="uploadModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/50 backdrop-blur-xs p-4">
         <div class="surface max-w-md w-full p-6 shadow-xl relative animate-in fade-in zoom-in-95 duration-200">
