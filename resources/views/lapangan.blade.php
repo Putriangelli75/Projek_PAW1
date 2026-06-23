@@ -88,7 +88,7 @@
                     </p>
                 </div>
 
-                <div id="lapanganCards" class="grid gap-5 lg:grid-cols-2">
+                <div id="lapanganCards" class="grid gap-8">
                 </div>
 
             </div>
@@ -260,46 +260,59 @@
                 lapangans.filter(item => item.status === 'tersedia').length;
 
             document.getElementById('lapanganCards').innerHTML =
-                lapangans.map(item => `
+lapangans.map(item => `
 
-<div class="surface field-card overflow-hidden">
+<div class="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300">
 
-    <div class="border-b border-slate-100 p-5">
+    <!-- FOTO -->
+    <div class="relative">
 
-        <div class="flex items-start justify-between">
+        <img
+            src="${
+                item.jenis_olahraga.toLowerCase().includes('tenis')
+                ? 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=1200'
+                : item.jenis_olahraga.toLowerCase().includes('badminton')
+                ? 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=1200'
+                : item.jenis_olahraga.toLowerCase().includes('futsal')
+                ? 'https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=1200'
+                : item.jenis_olahraga.toLowerCase().includes('basket')
+                ? 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200'
+                : 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200'
+            }"
+            class="w-full h-60 object-cover"
+            alt="${escapeHtml(item.nama_lapangan)}"
+        >
 
-            <div>
-
-                <h3 class="text-lg font-bold text-slate-900">
-                    ${escapeHtml(item.nama_lapangan)}
-                </h3>
-
-                <p class="mt-1 text-sm text-slate-500">
-                    ${escapeHtml(item.jenis_olahraga)}
-                </p>
-
-            </div>
-
-            <span class="
-                rounded-full px-3 py-1 text-xs font-semibold
-                ${
-                    item.status === 'tersedia'
-                    ? 'bg-emerald-50 text-emerald-700'
-                    : 'bg-orange-50 text-orange-700'
-                }
-            ">
-                ${escapeHtml(item.status)}
-            </span>
-
-        </div>
+        <span class="
+            absolute top-4 right-4
+            rounded-full px-4 py-2 text-sm font-semibold
+            ${
+                item.status === 'tersedia'
+                ? 'bg-emerald-100 text-emerald-700'
+                : 'bg-orange-100 text-orange-700'
+            }
+        ">
+            ${escapeHtml(item.status)}
+        </span>
 
     </div>
 
-    <div class="p-5">
+    <!-- ISI -->
+    <div class="p-6">
 
-        <div class="flex items-center gap-3">
+        <h3 class="text-2xl font-bold text-slate-900">
+            ${escapeHtml(item.nama_lapangan)}
+        </h3>
 
-            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-2xl">
+        <p class="text-slate-500 mt-1">
+            ${escapeHtml(item.jenis_olahraga)}
+        </p>
+
+        <hr class="my-5">
+
+        <div class="flex items-center gap-4">
+
+            <div class="h-14 w-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-3xl">
 
                 ${
                     item.jenis_olahraga.toLowerCase().includes('futsal')
@@ -308,20 +321,20 @@
                     ? '🏸'
                     : item.jenis_olahraga.toLowerCase().includes('basket')
                     ? '🏀'
-                    : item.jenis_olahraga.toLowerCase().includes('voli')
-                    ? '🏐'
-                    : '🏟️'
+                    : item.jenis_olahraga.toLowerCase().includes('mini soccer')
+                    ? '⚽'
+                    : '🎾'
                 }
 
             </div>
 
             <div>
 
-                <p class="text-xs text-slate-400">
+                <p class="text-sm text-slate-400">
                     Harga per Jam
                 </p>
 
-                <h4 class="text-xl font-bold text-emerald-700">
+                <h4 class="text-3xl font-bold text-emerald-700">
                     ${formatRupiah(item.harga_per_jam)}
                 </h4>
 
@@ -329,37 +342,39 @@
 
         </div>
 
-        <p class="mt-4 text-sm leading-6 text-slate-600">
+        <p class="mt-5 text-slate-600 leading-7">
 
-            ${escapeHtml(
-                item.deskripsi ??
-                'Lapangan siap digunakan untuk berbagai aktivitas olahraga.'
-            )}
+            ${
+                escapeHtml(
+                    item.deskripsi ??
+                    'Lapangan siap digunakan untuk berbagai aktivitas olahraga.'
+                )
+            }
 
         </p>
 
-        <div class="mt-5">
+        <div class="mt-6">
 
             ${
                 item.status === 'tersedia'
                 ? `
-                            <button
-                                onclick="selectLapangan(${item.id})"
-                                class="btn-clean w-full">
+                <button
+                    onclick="selectLapangan(${item.id})"
+                    class="btn-clean w-full text-lg py-3">
 
-                                Pesan Lapangan
+                    🎟️ Pesan Sekarang
 
-                            </button>
-                            `
+                </button>
+                `
                 : `
-                            <button
-                                disabled
-                                class="btn-outline-clean w-full opacity-60">
+                <button
+                    disabled
+                    class="btn-outline-clean w-full opacity-60">
 
-                                Tidak Tersedia
+                    🎟️ Tidak Tersedia
 
-                            </button>
-                            `
+                </button>
+                
             }
 
         </div>
