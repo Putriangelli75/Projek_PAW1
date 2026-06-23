@@ -35,7 +35,10 @@
         </div>
     </div>
 
+
     <div class="mt-6">
+        
+        
         <!-- Lapangan Preview -->
         <div class="surface p-5">
             <div class="flex items-center justify-between gap-4">
@@ -79,7 +82,7 @@
         document.getElementById('userName').innerText = loggedInUser.name || 'User';
 
         loadDashboard();
-
+        
         async function loadDashboard() {
             const [lapanganResponse, bookingResponse] = await Promise.all([
                 fetch('/api/lapangan', {
