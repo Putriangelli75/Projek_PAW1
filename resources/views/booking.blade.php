@@ -86,64 +86,105 @@
 
 {{-- MODAL UPLOAD --}}
 <div id="uploadModal"
-     class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4">
+     class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
 
-    <div class="surface w-full max-w-md p-6">
+    <div class="w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl">
 
-        <h3 class="text-xl font-bold text-slate-900">
-            Upload Bukti Pembayaran
-        </h3>
+        {{-- HEADER --}}
+        <div class="bg-gradient-to-r from-emerald-600 to-emerald-500 p-6 text-black">
 
-        <p class="mt-1 text-sm text-slate-500">
-            Upload bukti transfer untuk verifikasi admin.
-        </p>
+            <h3 class="text-2xl font-bold">
+                Upload Bukti Pembayaran
+            </h3>
 
-        <div id="uploadAlert" class="mt-4"></div>
+            <p class="mt-1 text-emerald-100">
+                Upload bukti transfer untuk proses verifikasi admin.
+            </p>
 
-        <form id="uploadForm"
-              class="mt-5 space-y-4">
+        </div>
 
-            <input type="hidden"
-                   id="upload_booking_id">
+        {{-- BODY --}}
+        <div class="p-6">
 
-            <div>
+            <div id="uploadAlert"></div>
 
-                <label class="label-clean">
-                    Bukti Pembayaran
+            <form id="uploadForm" class="space-y-5">
+
+                <input
+                    type="hidden"
+                    id="upload_booking_id">
+
+                <label
+                    for="bukti_bayar"
+                    class="flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-emerald-300 bg-emerald-50 p-8 transition hover:bg-emerald-100">
+
+                    <div class="text-6xl">
+                        📄
+                    </div>
+
+                    <h4 class="mt-3 font-bold text-slate-800">
+                        Klik untuk memilih file
+                    </h4>
+
+                    <p class="mt-1 text-sm text-slate-500">
+                        JPG, PNG, PDF
+                    </p>
+
+                    <p class="mt-1 text-xs text-slate-400">
+                        Maksimal 5 MB
+                    </p>
+
                 </label>
 
                 <input
                     type="file"
                     id="bukti_bayar"
                     accept=".jpg,.jpeg,.png,.pdf"
-                    class="input-clean"
+                    class="hidden"
                     required>
 
-            </div>
+                {{-- Preview Nama File --}}
+                <div
+                    id="filePreview"
+                    class="hidden rounded-xl bg-slate-50 p-4">
 
-            <div class="flex justify-end gap-3">
+                    <p class="text-sm text-slate-500">
+                        File Dipilih
+                    </p>
 
-                <button
-                    type="button"
-                    onclick="closeUploadModal()"
-                    class="btn-outline-clean">
+                    <h4
+                        id="fileName"
+                        class="mt-1 font-semibold text-slate-800">
+                    </h4>
 
-                    Batal
+                </div>
 
-                </button>
+                {{-- BUTTON --}}
+                <div class="flex justify-end gap-3 pt-3">
 
-                <button
-                    type="submit"
-                    id="uploadSubmitBtn"
-                    class="btn-clean">
+                    <button
+                        type="button"
+                        onclick="closeUploadModal()"
+                        class="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 transition hover:bg-slate-100">
 
-                    Upload
+                        Batal
 
-                </button>
+                    </button>
 
-            </div>
+                    <button
+                        type="submit"
+                        id="uploadSubmitBtn"
+                        class="rounded-xl bg-emerald-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:bg-emerald-700">
 
-        </form>
+                        Upload Bukti
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
 
