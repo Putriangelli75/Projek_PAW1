@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('/booking', [BookingController::class, 'store']);
     Route::get('/riwayat-booking', [BookingController::class, 'riwayat']);
     Route::post('/booking/{booking}/upload-bukti', [BookingController::class, 'upload']);
+    
 
     // Admin routes
     Route::middleware('admin')->group(function (): void {
